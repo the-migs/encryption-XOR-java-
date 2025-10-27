@@ -1,0 +1,1 @@
+Projeto para testar o maximo de seguranca que consigo chegar com uma criptografia de XOR (ou absoluto)
