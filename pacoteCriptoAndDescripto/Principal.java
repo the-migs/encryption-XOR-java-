@@ -35,10 +35,10 @@ public class Principal {
     }
 
     public static void main(String[]args){
-        Scanner sc = new Scanner(System.in);
+        Scanner scB = new Scanner(System.in);
         
         System.out.println("\nDeseja criptografar(0) ou descriptografar(1)? - digite 0 ou 1.");
-        String resposta = sc.nextLine();
+        String resposta = scB.nextLine();
         System.out.println();
         switch (resposta) {
             case "0":
@@ -53,7 +53,7 @@ public class Principal {
                 System.out.println("Escolha incorreta!");
                 break;
         }
-        sc.close();
+        scB.close();
     }
 }
 

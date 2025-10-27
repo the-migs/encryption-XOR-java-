@@ -5,16 +5,16 @@ import java.util.Scanner;
 public class Descripto {
 
     public static StringBuilder metodoDescripto(){
-        Scanner sc = new Scanner(System.in);
+        Scanner scA = new Scanner(System.in);
         System.out.println("Digite o valor criptografado: \n-> Sempre coloque espaço entre os numeros!");
-        String scanner = sc.nextLine();
+        String scanner = scA.nextLine();
         System.out.println();
 
         String [] processo = scanner.split(" ");
         int[] criptografado = Arrays.stream(processo).mapToInt(Integer::parseInt).toArray();
 
         System.out.println("Digite a senha: \n");
-        String scannerSenha = sc.nextLine();
+        String scannerSenha = scA.nextLine();
         System.out.println();
 
         char[] senhaChar = scannerSenha.toCharArray();
@@ -28,7 +28,7 @@ public class Descripto {
             compartimentoChar[i] = (char)(criptografado[i] ^ senhaChar[d]);
         }
         for(char num : compartimentoChar){resultadoDescripto.append(num);}
-        sc.close();
+        scA.close();
         return resultadoDescripto;
     }
 }
