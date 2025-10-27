@@ -2,17 +2,16 @@ package pacoteCriptoAndDescripto;
 import java.util.Scanner;
 
 public class Principal {
-    static char[] senhaChar;
-    static char[] criptografado;
-    
+    static String pepper = "OrAnGotAngO_01%4$#@(*&^:";
+
     static StringBuilder metodoCripto(){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Digite a senha: ");
-        String senha = sc.nextLine();
+        String senhaScanner = sc.nextLine();
+        senhaScanner += pepper;
+        String[] senhas = {senhaScanner,"X8#k!pL$9@mQ*v2&zRn5%cB+wSd6FgHj","Kp$3!mX#8zL&v9@qW2%cB*n5+Rt6FgHj"};    
         System.out.println();
-
-        senhaChar = senha.toCharArray();
         
         System.out.println("Digite o texto a ser criptografado: ");
         String valorDescriptografado = sc.nextLine();
@@ -20,20 +19,20 @@ public class Principal {
         
         char[] textoChar = valorDescriptografado.toCharArray();
 
-        criptografado = new char[valorDescriptografado.length()];
         StringBuilder resultado = new StringBuilder();
-
-        for(int i = 0, d = 0; i < valorDescriptografado.length(); i++, d++){
-            if(d == senha.length()){
-                d = 0;
+        for(String senha : senhas){
+            for(int i = 0, d = 0; i < valorDescriptografado.length(); i++, d++){
+                char[] senhaChar = senha.toCharArray(); 
+                if(d == senha.length()){
+                    d = 0;
+                }
+                textoChar[i] = (char)(textoChar[i] ^ senhaChar[d]);
             }
-            criptografado[i] = (char)(textoChar[i] ^ senhaChar[d]);
         }
-        for(int num : criptografado){resultado.append(num).append(" ");}
-        sc.close();
+        sc.close(); 
+        for(int num : textoChar){resultado.append(num).append(" ");}
         return resultado;
     }
-
     public static void main(String[]args){
         Scanner scB = new Scanner(System.in);
         

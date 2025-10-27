@@ -7,27 +7,30 @@ public class Descripto {
     public static StringBuilder metodoDescripto(){
         Scanner scA = new Scanner(System.in);
         System.out.println("Digite o valor criptografado: \n-> Sempre coloque espaço entre os numeros!");
-        String scanner = scA.nextLine();
+        String scannerTexto = scA.nextLine();
         System.out.println();
 
-        String [] processo = scanner.split(" ");
+        String [] processo = scannerTexto.split(" ");
         int[] criptografado = Arrays.stream(processo).mapToInt(Integer::parseInt).toArray();
 
         System.out.println("Digite a senha: \n");
         String scannerSenha = scA.nextLine();
+        scannerSenha += Principal.pepper;
+
+        String[] senhas = {"Kp$3!mX#8zL&v9@qW2%cB*n5+Rt6FgHj","X8#k!pL$9@mQ*v2&zRn5%cB+wSd6FgHj",scannerSenha};
         System.out.println();
 
-        char[] senhaChar = scannerSenha.toCharArray();
-        char[] compartimentoChar = new char[criptografado.length];
-
         StringBuilder resultadoDescripto = new StringBuilder();
-        for(int i = 0, d = 0; i < criptografado.length; i++, d++){
-            if(d == senhaChar.length){
-                d = 0;
+        for(String senha: senhas){
+            for(int i = 0, d = 0; i < processo.length; i++, d++){
+                char[] senhaCharArray = senha.toCharArray();
+                if(d == senha.length()){
+                    d = 0;
+                }
+                criptografado[i] = (char)(criptografado[i] ^ senhaCharArray[d]);
             }
-            compartimentoChar[i] = (char)(criptografado[i] ^ senhaChar[d]);
         }
-        for(char num : compartimentoChar){resultadoDescripto.append(num);}
+        for(int num : criptografado){resultadoDescripto.append((char) num);}
         scA.close();
         return resultadoDescripto;
     }
