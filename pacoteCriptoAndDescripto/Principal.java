@@ -58,6 +58,7 @@ public class Principal {
                 break;
             case "3":
                 Imagem.metodoDescriptoImagem();
+                break;
             case "kill":
             case "KILL":
                 System.out.println("Saindo...");
