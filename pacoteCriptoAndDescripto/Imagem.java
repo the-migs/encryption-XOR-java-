@@ -13,14 +13,11 @@ public class Imagem {
         JFileChooser fileChooser = new JFileChooser();
         // guarda o valor numero que representa a escolha do usuario (0 - abriu | 1 - cancelou)
         int resultado = fileChooser.showOpenDialog(null);
-
         // vai guardar as informacoes do arquivo selecionado(caminho, nome, tipo ...etc)
         File arquivoImagem = null;
-
         // verifica se o usuario abriu algo (0 = APPROVE_OPTION)
         if (resultado == JFileChooser.APPROVE_OPTION) {
             arquivoImagem = fileChooser.getSelectedFile();
-
             try {  
                 // vai ler os bytes e salvar
                 byte[] bytesDaImagem = Files.readAllBytes(arquivoImagem.toPath());
@@ -30,24 +27,19 @@ public class Imagem {
                                             .replace(".png", ".txt")
                                             .replace(".jpeg", ".txt");
                 File arquivoTxt = new File(novoCaminho);
-
                 // converte para String ao mesmo tempo que converte os bytes em caracteres com o charset ISO-8859-1 (Latin-1)
                 String textoIlegivel = new String(metodoCriptoBytesImagem(bytesDaImagem), "ISO-8859-1");
                 //renomeia para .txt
                 arquivoImagem.renameTo(arquivoTxt);
                 //salva no lugar da imagem
                 Files.writeString(arquivoTxt.toPath(), textoIlegivel, Charset.forName("ISO-8859-1"));
-                
-                
             } catch (IOException e) {  // tratamento de erro
                 e.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Erro ao ler o arquivo: " + e.getMessage());
             }
         }
     }
-
 static byte[] metodoCriptoBytesImagem(byte[] bytesDaImagem){
-
         System.out.println("Digite a senha: ");
         String senhaScanner = Principal.scGlobal.nextLine();
 
@@ -65,7 +57,6 @@ static byte[] metodoCriptoBytesImagem(byte[] bytesDaImagem){
         }
         return bytesDaImagem;
     }
-
 public static void metodoDescriptoImagem() {
     // Pedir o arquivo .txt
     JFileChooser fileChooser = new JFileChooser();
@@ -76,22 +67,17 @@ public static void metodoDescriptoImagem() {
         
         try {
             // Ler o texto criptografado
-            String textoCripto = Files.readString(arquivoTxt.toPath(), Charset.forName("ISO-8859-1"));
-            
+            String textoCripto = Files.readString(arquivoTxt.toPath(), Charset.forName("ISO-8859-1")); 
             // Converter texto para bytes
-            byte[] bytesCripto = textoCripto.getBytes("ISO-8859-1");
-            
+            byte[] bytesCripto = textoCripto.getBytes("ISO-8859-1"); 
             // Descriptografar 
-            byte[] bytesImagem = metodoCriptoBytesImagem(bytesCripto);
-            
+            byte[] bytesImagem = metodoCriptoBytesImagem(bytesCripto);    
             // converter de volta para imagem
             String caminhoImagem = arquivoTxt.getAbsolutePath().replace(".txt", ".jpg");
-            File arquivoImagem = new File(caminhoImagem);
-            
+            File arquivoImagem = new File(caminhoImagem); 
             // renomear .txt pra jpg e escrever bytes da imagem
             Files.move(arquivoTxt.toPath(), arquivoImagem.toPath());
             Files.write(arquivoImagem.toPath(), bytesImagem);
-            
         } catch (Exception e) {
             e.printStackTrace();           
         }
